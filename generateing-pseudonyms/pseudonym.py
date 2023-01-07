@@ -1,10 +1,12 @@
 import sys
 import random
+import requests
+from requests.auth import HTTPBasicAuth
+import os
 
-first_names = ('Dave', 'Mark', 'Yuri')
-last_names = ('Smith', 'Jacobs', 'Ivanovich')
-
-first_name = random.choice(first_names)
-last_name = random.choice(last_names)
-print(first_name)
-print(last_name)
+uri = 'https://randommer.io/api/Name'
+api_key = os.environ['RANDOMMER_API_KEY']
+headers = {'x-api-key': api_key}
+params = {'nameType': 'fullname', 'quantity': '1'}
+get = requests.get(uri, headers=headers, params=params).json()
+print(get)
